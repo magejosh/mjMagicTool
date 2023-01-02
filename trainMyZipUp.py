@@ -1,19 +1,5 @@
 import os
-import subprocess
-
-# Create a Python virtual environment in the mjMagicTool directory
-subprocess.run(["python3", "-m", "venv", os.path.join("/workspace/mjMagicTool", "venv")])
-
-# Activate the virtual environment
-activate_this_path = os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "activate_this.py")
-with open(activate_this_path, "r") as f:
-    exec(f.read(), dict(__file__=activate_this_path))
-
-# Install the necessary packages
-subprocess.run(["pip", "install", "os", "gdown", "datetime", "zipfile"])
-
 import gdown
-import datetime
 import zipfile
 
 while True:
@@ -47,8 +33,3 @@ while True:
         another = input("Import complete! Do you want to import another Training set .zip file? (Y/N)").lower()
         if another == "n":
             break
-
-# Deactivate the virtual environment
-deactivate_this_path = os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "deactivate_this.py")
-with open(deactivate_this_path, "r") as f:
-    exec(f.read(), dict(__file__=deactivate_this_path))
