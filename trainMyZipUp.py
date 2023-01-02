@@ -1,8 +1,6 @@
 import os,subprocess
-venv_dir = os.path.join("/workspace/mjMagicTool", "venv")
-subprocess.run(["python3", "-m", "venv", venv_dir])
-activate_path = os.path.join(venv_dir, "bin", "activate_this.py")
-exec(open(activate_path).read(), dict(__file__=activate_path))
+subprocess.run(["python3", "-m", "venv", os.path.join("/workspace/mjMagicTool", "venv")])
+exec(open(os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "activate_this.py")).read(), dict(__file__=os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "activate_this.py")))
 !pip install os gdown datetime zipfile
 import gdown,datetime,zipfile
 while True:
@@ -20,14 +18,4 @@ while True:
         print("Import complete! Do you want to import another Training set .zip file? (Y/N)")
         if input().lower() == "n":
             break
-deactivate_path = os.path.join(venv_dir, "bin", "deactivate_this.py")
-exec(open(deactivate_path).read(), dict(__file__=deactivate_path))
-        with zipfile.ZipFile(zip_path, "r") as zip_ref:
-            zip_ref.extractall(unzip_dir)
-        print("Import complete! Do you want to import another Training set .zip file? (Y/N)")
-        if input().lower() == "n":
-            break
-
-# Deactivate the virtual environment
-deactivate_path = os.path.join(venv_dir, "bin", "deactivate_this.py")
-exec(open(deactivate_path).read(), dict(__file__=deactivate_path))
+exec(open(os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "deactivate_this.py")).read(), dict(__file__=os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "deactivate_this.py")))
