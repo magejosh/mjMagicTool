@@ -10,7 +10,7 @@ A custom script set customization tool designed for use on a Runpod [AUTOMATIC11
 
 This set of scripts is not meant to be installed into Automatic1111's webui or add any functionality to it directly, at least in it's current form. As such the root /workspace path works just fine for this installation if you plan to install it manually, but it should be installable from any directory in one copy pasted command into a jupyter notebook terminal on your runpod as well by just using the line from the installation section below.
 
-<img src="images/installation.png"/>
+<img src="https://i.imgur.com/EnMijO2.gif"/>
 
 The idea is you will simply start up a runpod instance with enough disk space and ram/gpu for your needs and wait for it to finish starting up. Make sure you select the automatic1111 SD 2.1 template as that is what this script set is developed to use with. Once it's running, open the jupyter notebook so you can see the files and open a terminal. Once it's open run the following command:
 
