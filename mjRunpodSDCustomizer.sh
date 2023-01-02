@@ -5,11 +5,25 @@
 
 
 # Check for sed command install by environtment type/package manager type and install both if needed
-[ ! -x "$(command -v yum)" ] && [ ! -x "$(command -v apt-get)" ] && [ ! -x "$(command -v brew)" ] && ([ ! -x "$(command -v wget)" ] && curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash || wget -O - https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash) || [ ! -x "$(command -v yum)" ] && apt-get install sed || [ ! -x "$(command -v apt-get)" ] && yum install sed || brew install sed
+# [ ! -x "$(command -v yum)" ] && [ ! -x "$(command -v apt-get)" ] && [ ! -x "$(command -v brew)" ] && ([ ! -x "$(command -v wget)" ] && curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash || wget -O - https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash) || [ ! -x "$(command -v yum)" ] && apt-get install sed || [ ! -x "$(command -v apt-get)" ] && yum install sed || brew install sed
 
 
+
+Install git lfs as it's needed later for some things
+# git lfs install
+
+# Check for sed command install by environtment type/package manager type and install both if needed
+if ! command -v apt-get > /dev/null && ! command -v brew > /dev/null; then
+  if ! command -v wget > /dev/null; then
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
+  else
+    wget -O - https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
+  fi
+fi
 
 # Install git lfs as it's needed later for some things
+apt-get update
+apt-get install git-lfs
 git lfs install
 
 
