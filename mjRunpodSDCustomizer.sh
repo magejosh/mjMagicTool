@@ -9,8 +9,10 @@
 
 
 
-Install git lfs as it's needed later for some things
+#Install git lfs as it's needed later for some things
 # git lfs install
+
+# sudo apt-get install apt-utils
 
 # Check for sed command install by environtment type/package manager type and install both if needed
 if ! command -v apt-get > /dev/null && ! command -v brew > /dev/null; then
@@ -23,6 +25,7 @@ fi
 
 # Install git lfs as it's needed later for some things
 apt-get update
+apt-get install apt-utils
 apt-get install git-lfs
 git lfs install
 
