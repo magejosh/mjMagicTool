@@ -1,7 +1,7 @@
 import os,subprocess
 subprocess.run(["python3", "-m", "venv", os.path.join("/workspace/mjMagicTool", "venv")])
 exec(open(os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "activate_this.py")).read(), dict(__file__=os.path.join(os.path.join("/workspace/mjMagicTool", "venv"), "bin", "activate_this.py")))
-!pip install os gdown datetime zipfile
+!pip install "os" "gdown" "datetime" "zipfile"
 import gdown,datetime,zipfile
 while True:
     if input("Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N)").lower() == "y":
