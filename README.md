@@ -17,7 +17,7 @@ The idea is you will simply start up a runpod instance with enough disk space an
 	git clone https://github.com/magejosh/mjMagicTool /workspace/mjMagicTool && cd /workspace/mjMagicTool && bash mjRunpodSDCustomizer.sh
 
 
-<video src="https://i.imgur.com/v6dFs83.mp4" <controls></video>
+<img src="https://i.imgur.com/peA6onB.gif"/>
 
 
 ## Customization Script
