@@ -14,10 +14,10 @@ This set of scripts is not meant to be installed into Automatic1111's webui or a
 
 The idea is you will simply start up a runpod instance with enough disk space and ram/gpu for your needs and wait for it to finish starting up. Make sure you select the automatic1111 SD 2.1 template as that is what this script set is developed to use with. Once it's running, open the jupyter notebook so you can see the files and open a terminal. Once it's open run the following command:
 
-	git clone https://github.com/user/repo /workspace/mjMagicTool && cd /workspace/mjMagicTool && bash script.sh
+	git clone https://github.com/magejosh/mjMagicTool /workspace/mjMagicTool && cd /workspace/mjMagicTool && bash mjRunpodSDCustomizer.sh
 
 
-<video src="https://i.imgur.com/v6dFs83.mp4" controls></video>
+<video src="https://i.imgur.com/v6dFs83.mp4" <controls></video>
 
 
 ## Customization Script
