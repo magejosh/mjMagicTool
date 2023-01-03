@@ -9,10 +9,12 @@
 
 
 
-#Install git lfs as it's needed later for some things
-# git lfs install
+# Check for outdated packages and update them
+outdated_packages=$(pip list --outdated)
+if [ -n "$outdated_packages" ]; then
+    pip install --upgrade $(pip list --outdated | awk '{print $1}')
+fi
 
-# sudo apt-get install apt-utils
 
 # Check for sed command install by environtment type/package manager type and install both if needed
 if ! command -v apt-get > /dev/null && ! command -v brew > /dev/null; then
