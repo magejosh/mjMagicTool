@@ -16,11 +16,16 @@ while True:
         zip_name = input("Name for zip file (no .zip): ")
         zip_path = os.path.join(subdir, zip_name + ".zip")
 
+        import re
+
         # Prompt the user for the URL of the zip file
         zip_url = input("URL for zip file: ")
 
-        # Download the zip file
-        gdown.download(zip_url, zip_path, quiet=False)
+        # Extract the file ID from the URL
+        file_id = re.search(r'[-\w]{25,}', zip_url).group()
+
+        # Use the file ID to download the zip file
+        gdown.download("https://drive.google.com/uc?id=" + file_id, zip_path, quiet=False)
         
         # Create a directory to unzip the file into
         unzip_dir = os.path.join(subdir, zip_name)
