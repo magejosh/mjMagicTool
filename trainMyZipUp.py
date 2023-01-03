@@ -2,21 +2,20 @@ import os
 import gdown
 import zipfile
 import datetime
+import re
 
 while True:
     # Prompt the user to import a training data zip file from Google Drive
     ready = input("Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N)").lower()
     if ready == "y":
         # Get the current date and create a subdirectory for the zip file
-        date = datetime.datetime.now().strftime("%Y-%m-%d")
+        date = datetime.datetime.now().strftime("%Y%m%d")
         subdir = os.path.join("/workspace/stable-diffusion-webui/inputs", date)
         os.makedirs(subdir, exist_ok=True)
 
         # Prompt the user for a name for the zip file
         zip_name = input("Name for zip file (no .zip): ")
         zip_path = os.path.join(subdir, zip_name + ".zip")
-
-        import re
 
         # Prompt the user for the URL of the zip file
         zip_url = input("URL for zip file: ")
@@ -39,3 +38,4 @@ while True:
         another = input("Import complete! Do you want to import another Training set .zip file? (Y/N)").lower()
         if another == "n":
             break
+        print("Don't you think you should get those files trained? Extracted to: {}".format(unzip_dir))
