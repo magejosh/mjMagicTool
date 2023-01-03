@@ -20,8 +20,8 @@ while True:
         zip_url = input("URL for zip file: ")
 
         # Download the zip file
-        gdown.download("--url", zip_url, "--output", zip_path, quiet=False)
-
+        gdown.download(zip_url, zip_path, quiet=False)
+        
         # Create a directory to unzip the file into
         unzip_dir = os.path.join(subdir, zip_name)
         os.makedirs(unzip_dir, exist_ok=True)
