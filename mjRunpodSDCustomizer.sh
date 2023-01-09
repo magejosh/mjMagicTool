@@ -71,7 +71,63 @@ while true; do echo "Do you want to download the v2.1 512 base models and yaml c
 
 
 # v2.0 512 depth models and yaml config file.
-while true; do echo "Do you want to download the v2.0 512 depth models and yaml config files in this group? roughly 11.42GB (Y/N)" && read answer && { [ "$answer" = "Y" ] && { [ -f v2-x_512-depth-ema.ckpt ] || { wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.ckpt --output-document=v2-x_512-depth-ema.ckpt || break; [ -f v2-x_512-depth-ema.safetensors ] || wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.safetensors --output-document=v2-x_512-depth-ema.safetensors; [ -f v2-x_512-depth-ema.yaml ] || wget https://github.com/Stability-AI/stablediffusion/blob/main/configs/stable-diffusion/v2-midas-inference.yaml --output-document=v2-x_512-depth-ema.yaml; } } || break; } done
+# while true; do echo "Do you want to download the v2.0 512 depth models and yaml config files in this group? roughly 11.42GB (Y/N)" && read answer && { [ "$answer" = "Y" ] && { [ -f v2-x_512-depth-ema.ckpt ] || { wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.ckpt --output-document=v2-x_512-depth-ema.ckpt || break; [ -f v2-x_512-depth-ema.safetensors ] || wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.safetensors --output-document=v2-x_512-depth-ema.safetensors; [ -f v2-x_512-depth-ema.yaml ] || wget https://github.com/Stability-AI/stablediffusion/blob/main/configs/stable-diffusion/v2-midas-inference.yaml --output-document=v2-x_512-depth-ema.yaml; } } || break; } done
+failed_downloads=()
+
+prompt_counter=0
+while true; do
+  read -p "Do you want to download the v2.0 512 depth models and yaml config files in this group? roughly 14GB (Y/N) " answer
+  case "$answer" in
+    [Yy]*)
+      break
+      ;;
+    [Nn]*)
+      break
+      ;;
+    *)
+      if [ $prompt_counter -eq 0 ]; then
+        echo "Please enter Y or N."
+        prompt_counter=1
+      else
+        break
+      fi
+      ;;
+  esac
+done
+
+if [ "$answer" = "Y" ]; then
+  if [ ! -f v2-x_512-depth-ema.ckpt ]; then
+    if ! wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.ckpt --output-document=v2-x_512-depth-ema.ckpt; then
+      failed_downloads+=("v2-x_512-depth-ema.ckpt")
+    fi
+  fi
+  if [ ! -f v2-x_512-depth-ema.safetensors ]; then
+    if ! wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.safetensors --output-document=v2-x_512-depth-ema.safetensors; then
+      failed_downloads+=("v2-x_512-depth-ema.safetensors")
+    fi
+  fi
+  if [ ! -f v2-x_depth2imgPruned.ckpt ]; then
+    if ! wget https://civitai.com/api/download/models/4234 --output-document=v2-x_depth2imgPruned.ckpt; then
+      failed_downloads+=("v2-x_depth2imgPruned.ckpt")
+    fi
+  fi
+  if [ ! -f v2-x_depth2imgPruned.yaml ]; then
+    if ! wget https://github.com/Stability-AI/stablediffusion/blob/main/configs/stable-diffusion/v2-midas-inference.yaml --output-document=v2-x_depth2imgPruned.yaml; then
+      failed_downloads+=("v2-x_depth2imgPruned.yaml")
+    fi
+  fi
+  if [ ! -f v2-x_512-depth-ema.yaml ]; then
+    if ! wget https://github.com/Stability-AI/stablediffusion/blob/main/configs/stable-diffusion/v2-midas-inference.yaml --output-document=v2-x_512-depth-ema.yaml; then
+      failed_downloads+=("v2-x_512-depth-ema.yaml")
+    fi
+  fi
+  if [ ${#failed_downloads[@]} -eq 0 ]; then
+    echo "All models downloaded successfully."
+  else
+    echo "Some models from this group failed to download:"
+    printf '%s\n' "${failed_downloads[@]}"
+  fi
+fi
 
 
 
@@ -136,6 +192,10 @@ while true; do read -p "Do you want to download the 3DKX_1.0b model file? $(curl
 
 
 while true; do read -p "Do you want to download the dreamlike-diffusion-1.0 model file? $(curl -sI https://civitai.com/api/download/models/1356 | grep Content-Length | awk '{print $2}' | tr -d '\r') bytes (Y/N)" answer && [ "$answer" = "Y" ] && [ ! -f /workspace/stable-diffusion-webui/models/Stable-diffusion/dreamlike-diffusion-1.0.ckpt ] && wget https://civitai.com/api/download/models/1356 --output-document=dreamlike-diffusion-1-0.ckpt && break || ([ "$answer" = "N" ]) && break || ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && echo "Please enter Y or N" && ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && echo "Please enter Y or N" && ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && echo "Please enter Y or N" && ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && break; done
+
+
+
+while true; do read -p "Do you want to download the Protogen v2.2 model file? $(curl -sI https://civitai.com/api/download/models/4007 | grep Content-Length | awk '{print $2}' | tr -d '\r') bytes (Y/N)" answer && [ "$answer" = "Y" ] && [ ! -f /workspace/stable-diffusion-webui/models/Stable-diffusion/protogenV22Anime_22.safetensors ] && wget https://civitai.com/api/download/models/4007 --output-document=protogenV22Anime_22.safetensors && break || ([ "$answer" = "N" ]) && break || ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && echo "Please enter Y or N" && ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && echo "Please enter Y or N" && ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && echo "Please enter Y or N" && ([ "$answer" != "Y" ] && [ "$answer" != "N" ]) && break; done
 
 
 
@@ -246,6 +306,11 @@ cd /workspace/stable-diffusion-webui/embeddings
 [ -f NegLowRes-100.pt ] && echo "Skipping" || git clone https://huggingface.co/tolerantpancake/NegativeLowResolution /workspace/stable-diffusion-webui/embeddings
 [ -f NegMutation-100.pt ] && echo "Skipping" || git clone https://huggingface.co/tolerantpancake/NegativeMutation /workspace/stable-diffusion-webui/embeddings
 [ -f CyberJourneyv4-100.pt ] && echo "Skipping" || git clone https://huggingface.co/tolerantpancake/CyberJourneyv4 /workspace/stable-diffusion-webui/embeddings
+[ -f Smoose-22.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4042 --output-document=Smoose-22.pt
+[ -f Style-Winter2-1.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4143 --output-document=Style-Winter2-1.pt
+[ -f classipeint.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4177 --output-document=classipeint.pt
+[ -f Lavastyle.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4466 --output-document=Lavastyle.pt
+[ -f EMB_Black_Marble_Style_V5-2000.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4616 --output-document=EMB_Black_Marble_Style_V5-2000.pt
 
 # Next line is just easy copypasta template for adding new embeddings to be downloaded to the list.
 # [ -f TungstenDispo.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/3826 --output-document=TungstenDispo.pt
