@@ -54,7 +54,11 @@ extensions = [    {        'name': 'sd-dynamic-prompts',        'url': 'https://
     # path = input("Please input the path to the 'webui/extensions' folder: ")
 
 # os.chdir(path)
-on_runpod = input("Is this running on runpod? (y/n): ").lower() or "n"
+on_runpod = input("Is this running on runpod? (y/n): ")
+if on_runpod == "":
+    on_runpod = "n"
+else:
+    on_runpod = on_runpod.lower()
 if on_runpod == 'y':
     path = '/workspace/stable-diffusion-webui/extensions'
 elif on_runpod == 'n':
