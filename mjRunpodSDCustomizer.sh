@@ -345,29 +345,56 @@ cd /workspace/stable-diffusion-webui/embeddings
 
 
 # Restore the placeholder token therefore destroying the user provided one so it's not being stored insecurely.
-sed -i -e "s/$token/HuggingFace_TokenGoesHere/g" -e "s/$token/hf_other_placeholder/g" "$0"
+# sed -i -e "s/$token/HuggingFace_TokenGoesHere/g" -e "s/$token/hf_other_placeholder/g" "$0"
+# Restore the placeholder token therefore destroying the user provided one so it's not being stored insecurely.
+sed -i -e "s/$token/HuggingFace_TokenGoesHere/g" -e "s/$token/hf_other_placeholder/g" "/workspace/mjMagicTool/mjRunpodSDCustomizer.sh"
 
 
 
 # read -p "Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/trainMyZipUp.py; elif [ "$answer" = "N" ]; then :; else for i in {1..2}; do read -p "Invalid response. Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/trainMyZipUp.py; break; elif [ "$answer" = "N" ]; then :; break; fi; done; if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then :; fi; fi
-read -p "Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then
+# read -p "Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then
+    # python /workspace/mjMagicTool/trainMyZipUp.py &
+    # wait %1
+# elif [ "$answer" = "N" ]; then
+    # :
+# else
+    # for i in {1..2}; do
+        # read -p "Invalid response. Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer;
+        # if [ "$answer" = "Y" ]; then
+            # python /workspace/mjMagicTool/trainMyZipUp.py &
+            # wait %1
+            # break
+        # elif [ "$answer" = "N" ]; then
+            # :
+            # break
+        # fi
+    # done
+    # if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then
+        # :
+    # fi
+# fi
+read -p "Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/trainMyZipUp.py; elif [ "$answer" = "N" ]; then :; else for i in {1..2}; do read -p "Invalid response. Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/trainMyZipUp.py; break; elif [ "$answer" = "N" ]; then :; break; fi; done; if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then :; fi; fi
+
+ready = input("Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N) [N]").lower() or "n"
+if [ "$ready" = "y" ]; then
     python /workspace/mjMagicTool/trainMyZipUp.py &
     wait %1
-elif [ "$answer" = "N" ]; then
+elif [ "$ready" = "n" ]; then
     :
 else
     for i in {1..2}; do
-        read -p "Invalid response. Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer;
-        if [ "$answer" = "Y" ]; then
+        read -p "Invalid response. Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N) [N]: " ready;
+        ready=${ready:-n}
+        if [ "$ready" = "Y" ]; then
             python /workspace/mjMagicTool/trainMyZipUp.py &
             wait %1
             break
-        elif [ "$answer" = "N" ]; then
+        elif [ "$ready" = "N" ]; then
             :
             break
         fi
     done
-    if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then
+    if [ "$ready" != "Y" ] && [ "$ready" != "N" ]; then
         :
     fi
 fi
@@ -377,7 +404,7 @@ fi
 # read -p "Do you want to add Extensions? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/getExtLoopy.py; elif [ "$answer" = "N" ]; then :; else for i in {1..2}; do read -p "Invalid response. Do you want to add Extensions? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/getExtLoopy.py; break; elif [ "$answer" = "N" ]; then :; break; fi; done; if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then :; fi; fi
 read -p "Do you want to add Extensions? (Y/N): " answer; if [ "$answer" = "Y" ]; then
     python /workspace/mjMagicTool/getExtLoopy.py &
-    wait %2
+    wait %1
 elif [ "$answer" = "N" ]; then
     :
 else
@@ -385,7 +412,7 @@ else
         read -p "Invalid response. Do you want to add Extensions? (Y/N): " answer;
         if [ "$answer" = "Y" ]; then
             python /workspace/mjMagicTool/getExtLoopy.py &
-            wait %2
+            wait %1
             break
         elif [ "$answer" = "N" ]; then
             :
@@ -399,7 +426,26 @@ fi
 
 # read -p "Do you want to import Custom Scripts? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/magicScripts.py; elif [ "$answer" = "N" ]; then :; else for i in {1..2}; do read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/magicScripts.py; break; elif [ "$answer" = "N" ]; then :; break; fi; done; if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then :; fi; fi
 # read -p "Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh || [ "$answer" = "N" ]) || :))
-read -p "Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh & wait %3 || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh & wait %3 || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh & wait %3 || [ "$answer" = "N" ]) || :))
+# read -p "Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh & wait %1 || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh & wait %1 || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer && ([ "$answer" = "Y" ] && bash /workspace/mjMagicTool/magicScripts.sh & wait %1 || [ "$answer" = "N" ]) || :))
+read -p "Do you want to import Custom Scripts? (Y/N): " answer
+if [ "$answer" = "Y" ]; then
+    bash /workspace/mjMagicTool/magicScripts.sh &
+    wait %1
+elif [ "$answer" = "N" ]; then
+    :
+else
+    echo "Please enter Y or N"
+    read -p "Invalid response. Do you want to import Custom Scripts? (Y/N): " answer
+    if [ "$answer" = "Y" ]; then
+        bash /workspace/mjMagicTool/magicScripts.sh &
+        wait %1
+    elif [ "$answer" = "N" ]; then
+        :
+    else
+        echo "Please enter Y or N"
+    fi
+fi
+
 
 echo "Mischief Managed"
 echo " .-. "
