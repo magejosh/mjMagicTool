@@ -345,6 +345,8 @@ cd /workspace/stable-diffusion-webui/embeddings
 [ -f classipeint.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4177 --output-document=classipeint.pt
 [ -f Lavastyle.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4466 --output-document=Lavastyle.pt
 [ -f EMB_Black_Marble_Style_V5-2000.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4616 --output-document=EMB_Black_Marble_Style_V5-2000.pt
+[ -f ParchArt.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/4584 --output-document=ParchArt.pt
+[ -f DrD_PNTE768.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/3826 --output-document=DrD_PNTE768.pt
 
 # Next line is just easy copypasta template for adding new embeddings to be downloaded to the list.
 # [ -f TungstenDispo.pt ] && echo "Skipping" || wget https://civitai.com/api/download/models/3826 --output-document=TungstenDispo.pt
