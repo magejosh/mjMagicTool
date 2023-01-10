@@ -373,9 +373,29 @@ sed -i -e "s/$token/HuggingFace_TokenGoesHere/g" -e "s/$token/hf_other_placehold
         # :
     # fi
 # fi
-read -p "Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/trainMyZipUp.py; elif [ "$answer" = "N" ]; then :; else for i in {1..2}; do read -p "Invalid response. Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer; if [ "$answer" = "Y" ]; then python /workspace/mjMagicTool/trainMyZipUp.py; break; elif [ "$answer" = "N" ]; then :; break; fi; done; if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then :; fi; fi
+read -p "Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer
+if [ "$answer" = "Y" ]; then
+    python /workspace/mjMagicTool/trainMyZipUp.py
+elif [ "$answer" = "N" ]; then
+    :
+else
+    for i in {1..2}; do
+        read -p "Invalid response. Do you want to import training data via a .zip file from a Google Drive link you set to share with anyone? (Y/N): " answer
+        if [ "$answer" = "Y" ]; then
+            python /workspace/mjMagicTool/trainMyZipUp.py
+            break
+        elif [ "$answer" = "N" ]; then
+            :
+            break
+        fi
+    done
+    if [ "$answer" != "Y" ] && [ "$answer" != "N" ]; then
+        :
+    fi
+fi
 
-ready = input("Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N) [N]").lower() or "n"
+read -p "Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N) [N]: " ready
+ready=${ready:-n}
 if [ "$ready" = "y" ]; then
     python /workspace/mjMagicTool/trainMyZipUp.py &
     wait %1
@@ -383,7 +403,7 @@ elif [ "$ready" = "n" ]; then
     :
 else
     for i in {1..2}; do
-        read -p "Invalid response. Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N) [N]: " ready;
+        read -p "Invalid response. Are you ready to import a training data zip file from Google Drive (URL must be set to share with anyone with the link)? (Y/N) [N]: " ready
         ready=${ready:-n}
         if [ "$ready" = "Y" ]; then
             python /workspace/mjMagicTool/trainMyZipUp.py &
@@ -398,6 +418,7 @@ else
         :
     fi
 fi
+
 
 
 

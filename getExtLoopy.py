@@ -82,7 +82,7 @@ for extension in extensions:
         except Exception as e:
             print(f'Error while installing {name}: {e}')
             pass
-       else:
+        else:
             if name == 'sd-dynamic-prompts':
                 sd_dynamic_prompts_installed = True
     elif install_response.upper() == 'N':
@@ -98,7 +98,7 @@ for extension in extensions:
                 except Exception as e:
                     print(f'Error while installing {name}: {e}')
                     pass
-               else:
+                else:
                     if name == 'sd-dynamic-prompts':
                         sd_dynamic_prompts_installed = True
                     break
