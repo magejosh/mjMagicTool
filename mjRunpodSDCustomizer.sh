@@ -203,7 +203,35 @@ while true; do read -p "Do you want to download the Protogen v2.2 model file? $(
 #Hypernetworks
 cd /workspace/stable-diffusion-webui/models/hypernetworks
 
-if [ -f /workspace/stable-diffusion-webui/models/hypernetworks/djzCyberSocietyV21_0.pt ]; then echo "Skipping"; else read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Relies on v2.x models) (Y/N): " answer && ([ "$answer" = "Y" ] && wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Y/N): " answer && ([ "$answer" = "Y" ] && wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Y/N): " answer && ([ "$answer" = "Y" ] && wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt || [ "$answer" = "N" ]) || echo "Skipping"))); fi
+# if [ -f /workspace/stable-diffusion-webui/models/hypernetworks/djzCyberSocietyV21_0.pt ]; then echo "Skipping"; else read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Relies on v2.x models) (Y/N): " answer && ([ "$answer" = "Y" ] && wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Y/N): " answer && ([ "$answer" = "Y" ] && wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt || [ "$answer" = "N" ]) || (echo "Please enter Y or N" && read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Y/N): " answer && ([ "$answer" = "Y" ] && wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt || [ "$answer" = "N" ]) || echo "Skipping"))); fi
+if [ -f /workspace/stable-diffusion-webui/models/hypernetworks/djzCyberSocietyV21_0.pt ]; then
+  echo "Skipping"
+else
+  read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Relies on v2.x models) (Y/N): " answer
+  if [ "$answer" = "Y" ]; then
+    wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt
+  elif [ "$answer" = "N" ]; then
+    :
+  else
+    echo "Please enter Y or N"
+    read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Y/N): " answer
+    if [ "$answer" = "Y" ]; then
+      wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt
+    elif [ "$answer" = "N" ]; then
+      :
+    else
+      echo "Please enter Y or N"
+      read -p "Do you want to install the djzCyberSocietyV21_0 hypernetwork? (Y/N): " answer
+      if [ "$answer" = "Y" ]; then
+        wget https://civitai.com/api/download/models/3003 --output-document=djzCyberSocietyV21_0.pt
+      elif [ "$answer" = "N" ]; then
+        :
+      else
+        echo "Skipping"
+      fi
+    fi
+  fi
+fi
 
 
 
