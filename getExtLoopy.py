@@ -46,14 +46,32 @@ extensions = [    {        'name': 'sd-dynamic-prompts',        'url': 'https://
 # os.chdir('/workspace/stable-diffusion-webui/extensions')
 
 # Check if this is running on runpod
-on_runpod = input("Is this running on runpod? (y/n): ").lower()
+# on_runpod = input("Is this running on runpod? (y/n): ").lower()
 
+# if on_runpod == 'y':
+    # path = '/workspace/stable-diffusion-webui/extensions'
+# else:
+    # path = input("Please input the path to the 'webui/extensions' folder: ")
+
+# os.chdir(path)
+on_runpod = input("Is this running on runpod? (y/n): ").lower() or "n"
 if on_runpod == 'y':
     path = '/workspace/stable-diffusion-webui/extensions'
-else:
+elif on_runpod == 'n':
     path = input("Please input the path to the 'webui/extensions' folder: ")
+else:
+    print("Please enter 'y' or 'n'")
+    on_runpod = input("Is this running on runpod? (y/n): ").lower() or "n"
+    if on_runpod == 'y':
+        path = '/workspace/stable-diffusion-webui/extensions'
+    elif on_runpod == 'n':
+        path = input("Please input the path to the 'webui/extensions' folder: ")
+    else:
+        # If the user still enters an invalid response, we will use the default path
+        path = '/workspace/stable-diffusion-webui/extensions'
 
 os.chdir(path)
+
 
 # contingency effects based on extension dependencies
 sd_dynamic_prompts_installed = False

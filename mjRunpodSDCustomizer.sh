@@ -7,6 +7,12 @@
 # Check for sed command install by environtment type/package manager type and install both if needed
 # [ ! -x "$(command -v yum)" ] && [ ! -x "$(command -v apt-get)" ] && [ ! -x "$(command -v brew)" ] && ([ ! -x "$(command -v wget)" ] && curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash || wget -O - https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash) || [ ! -x "$(command -v yum)" ] && apt-get install sed || [ ! -x "$(command -v apt-get)" ] && yum install sed || brew install sed
 
+pip install virtualenv
+
+virtualenv mjvenv
+
+source mjvenv/bin/activate
+# your code goes here
 
 # Check for and install updates for pip
 pip install --upgrade pip
@@ -469,23 +475,7 @@ fi
 
 
 echo "Mischief Managed"
-echo " .-. "
-echo " .'=^=`. "
-echo " /(0 0)` "
-echo " \/-,--' "
-echo " (/ \` "
-echo " /\ | "
-echo " / / "
-echo " / // "
-echo " / / | \` "
-echo " \`/ \`| | "
-echo " //`/ / "
-echo " // / / "
-echo " / / / / "
-echo " \`/ / / "
-echo " / / / "
-echo " | | | "
-echo " \`/ / "
-echo " \/ "
+source mjvenv/bin/deactivate
+
 
 echo "Don't forget to restart the webui now that these changes have been made so all dependencies will finish installing."
