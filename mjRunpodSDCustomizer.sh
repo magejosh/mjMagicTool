@@ -138,7 +138,7 @@ fi
 
 
 # v2.0 512 inpainting models and yaml config file.
-while true; do echo "Do you want to download the v2.0 512 inpainting models and yaml config files in this group? roughly 10.42GB (Y/N)" && read answer && { [ "$answer" = "Y" ] && { [ -f v2-X_512-inpainting-ema.ckpt ] || { wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-inpainting/resolve/main/512-inpainting-ema.ckpt || break; [ -f v2-X_512-inpainting-ema.safetensors ] || wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-inpainting/resolve/main/512-inpainting-ema.safetensors; [ -f v2-X_512-inpainting-ema.yaml ] || wget https://github.com/Stability-AI/stablediffusion/blob/main/configs/stable-diffusion/v2-inpainting-inference.yaml --output-document=v2-X_512-inpainting-ema.yaml; } } || break; } done
+while true; do echo "Do you want to download the v2.0 512 inpainting models and yaml config files in this group? roughly 10.42GB (Y/N)" && read answer && { [ "$answer" = "Y" ] && { [ -f v2-X_512-inpainting-ema.ckpt ] || { wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-inpainting/resolve/main/512-inpainting-ema.ckpt || break; [ -f v2-X_512-inpainting-ema.safetensors ] || wget --header="Authorization: HuggingFace_TokenGoesHere" https://huggingface.co/stabilityai/stable-diffusion-2-inpainting/resolve/main/512-inpainting-ema.safetensors; [ -f v2-X_512-inpainting-ema.yaml ] || wget https://raw.githubusercontent.com/Stability-AI/stablediffusion/main/configs/stable-diffusion/v2-inpainting-inference.yaml --output-document=v2-X_512-inpainting-ema.yaml; } } || break; } done
 
 
 
