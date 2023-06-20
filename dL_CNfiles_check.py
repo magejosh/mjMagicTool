@@ -15,7 +15,9 @@ urls = [
     'https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_scribble.pth',
     'https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_seg.pth',
     'https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_softedge.pth',
-    'https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15s2_lineart_anime.pth'
+    'https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15s2_lineart_anime.pth',
+    'https://huggingface.co/DionTimmer/controlnet_qrcode/resolve/main/control_v1p_sd15_qrcode.safetensors',
+    'https://huggingface.co/DionTimmer/controlnet_qrcode/resolve/main/control_v11p_sd21_qrcode.safetensors'
 ]
 
 for url in urls:
@@ -24,8 +26,8 @@ for url in urls:
         response = requests.get(url)
         with open(file_name, 'wb') as f:
             f.write(response.content)
-    yaml_url = url.replace('.pth', '.yaml')
-    yaml_file_name = file_name.replace('.pth', '.yaml')
+    yaml_url = url.replace('.pth', '.yaml').replace('.safetensors', '.yaml')
+    yaml_file_name = file_name.replace('.pth', '.yaml').replace('.safetensors', '.yaml')
     if not os.path.exists(yaml_file_name):
         yaml_response = requests.get(yaml_url)
         with open(yaml_file_name, 'wb') as f:
